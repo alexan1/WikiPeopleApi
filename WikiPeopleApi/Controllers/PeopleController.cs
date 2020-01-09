@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +25,11 @@ namespace WikiPeopleApi.Controllers
             var itemID = "Q" + key.ToString();
             var url = urlBase + itemID + urlOptions;
             var client = new HttpClient();
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
             var json = await client.GetStringAsync(url);
-            var results = JObject.Parse(json);
+            var results = JsonDocument.Parse(json);
+            int a = 0;
+            /*
             var entities = results["entities"]?[itemID];
             var name = entities["labels"]["en"]["value"].ToString();
 
@@ -84,7 +88,9 @@ namespace WikiPeopleApi.Controllers
                 Link = linkBase + link,
                 Rating = rating
             };
-            return person;
+            */
+            //return person;
+            return Ok(0);
 
         }
     }
